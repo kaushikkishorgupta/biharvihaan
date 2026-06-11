@@ -71,7 +71,7 @@ use App\Core\Session;
                             <span>Current Status:</span>
                             <?php
                             $badge = 'bg-info';
-                            if ($lead['status'] === 'contacted') $badge = 'bg-warning text-dark';
+                            if ($lead['status'] === 'contacted') $badge = 'bg-warning ';
                             elseif ($lead['status'] === 'qualified') $badge = 'bg-primary';
                             elseif ($lead['status'] === 'won') $badge = 'bg-success';
                             elseif ($lead['status'] === 'lost') $badge = 'bg-danger';
@@ -192,7 +192,7 @@ use App\Core\Session;
                 <?php else: ?>
                     <div class="table-responsive">
                         <table class="table table-dark table-hover align-middle mb-0">
-                            <thead class="table-light text-dark fs-7">
+                            <thead class="table-light  fs-7">
                                 <tr>
                                     <th scope="col" class="ps-4">Client Name</th>
                                     <th scope="col">Business Listing</th>
@@ -240,7 +240,7 @@ use App\Core\Session;
                                         <td class="text-center">
                                             <?php
                                             $badge = 'bg-info';
-                                            if ($l['status'] === 'contacted') $badge = 'bg-warning text-dark';
+                                            if ($l['status'] === 'contacted') $badge = 'bg-warning ';
                                             elseif ($l['status'] === 'qualified') $badge = 'bg-primary';
                                             elseif ($l['status'] === 'won') $badge = 'bg-success';
                                             elseif ($l['status'] === 'lost') $badge = 'bg-danger';

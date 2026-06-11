@@ -18,15 +18,15 @@ $viewMode = $view_mode ?? 'docs';
      ========================================== -->
 <?php if ($viewMode === 'invoice'): ?>
     <div class="container py-5 mt-5 max-w-2xl">
-        <div class="card bg-white text-dark shadow p-4 p-md-5" id="printable-area" style="border-radius:12px; border:1px solid rgba(0,0,0,0.08);">
+        <div class="card bg-surface  shadow p-4 p-md-5" id="printable-area" style="border-radius:12px; border:1px solid rgba(0,0,0,0.08);">
             
             <div class="d-flex justify-content-between align-items-start border-bottom pb-4 mb-4">
                 <div>
-                    <h1 class="h3 fw-bold text-dark mb-0 font-outfit">BIHAR VIHAAN ENTERPRISE</h1>
+                    <h1 class="h3 fw-bold  mb-0 font-outfit">BIHAR VIHAAN ENTERPRISE</h1>
                     <span class="small text-muted fw-bold">GST Billed Transaction Receipt</span>
                 </div>
                 <div class="text-end">
-                    <div class="fw-bold text-dark fs-5">TAX INVOICE</div>
+                    <div class="fw-bold  fs-5">TAX INVOICE</div>
                     <div class="small text-muted mt-1">Date: <?= date('d M Y H:i', strtotime($payment['created_at'])) ?></div>
                 </div>
             </div>
@@ -34,13 +34,13 @@ $viewMode = $view_mode ?? 'docs';
             <div class="row g-4 mb-5 small">
                 <div class="col-6">
                     <div class="text-uppercase text-muted fw-bold mb-2">Billed To:</div>
-                    <div class="fw-bold text-dark fs-6"><?= htmlspecialchars($payment['user_name']) ?></div>
+                    <div class="fw-bold  fs-6"><?= htmlspecialchars($payment['user_name']) ?></div>
                     <div class="text-muted"><?= htmlspecialchars($payment['user_email']) ?></div>
                 </div>
                 <div class="col-6 text-end">
                     <div class="text-uppercase text-muted fw-bold mb-2">Audit Codes:</div>
-                    <div>Order ID: <code class="bg-light text-dark px-2 py-1 rounded small"><?= htmlspecialchars($payment['order_id']) ?></code></div>
-                    <div class="mt-1">TXN Code: <code class="bg-light text-dark px-2 py-1 rounded small"><?= htmlspecialchars($payment['transaction_id']) ?></code></div>
+                    <div>Order ID: <code class="bg-light  px-2 py-1 rounded small"><?= htmlspecialchars($payment['order_id']) ?></code></div>
+                    <div class="mt-1">TXN Code: <code class="bg-light  px-2 py-1 rounded small"><?= htmlspecialchars($payment['transaction_id']) ?></code></div>
                 </div>
             </div>
 
@@ -56,7 +56,7 @@ $viewMode = $view_mode ?? 'docs';
                     <tbody>
                         <tr>
                             <td class="px-3 text-uppercase text-muted small"><?= htmlspecialchars($payment['reference_type']) ?></td>
-                            <td class="px-3 fw-bold text-dark">
+                            <td class="px-3 fw-bold ">
                                 <?php 
                                 if ($payment['reference_type'] === 'booking') {
                                     echo htmlspecialchars($reference['item_name']) . " Room Booking / Guide Reservation";
@@ -78,7 +78,7 @@ $viewMode = $view_mode ?? 'docs';
                             <td class="text-end fw-bold py-2">₹0.00</td>
                         </tr>
                         <tr class="table-group-divider border-top border-dark border-3 fs-5">
-                            <td colspan="2" class="text-end fw-extrabold text-dark py-3">Total Amount Billed:</td>
+                            <td colspan="2" class="text-end fw-extrabold  py-3">Total Amount Billed:</td>
                             <td class="text-end fw-extrabold text-primary py-3">₹<?= number_format($payment['amount'], 2) ?></td>
                         </tr>
                     </tbody>
@@ -91,7 +91,7 @@ $viewMode = $view_mode ?? 'docs';
                     <div>Status Code: <span class="text-success fw-bold">CAPTURED</span></div>
                 </div>
                 <div class="text-end">
-                    <div class="fw-bold text-dark mb-4">BIHAR VIHAAN OFFICIAL STAMP</div>
+                    <div class="fw-bold  mb-4">BIHAR VIHAAN OFFICIAL STAMP</div>
                     <div class="border-top pt-1 text-center" style="width: 150px; display:inline-block;">Authorized Signatory</div>
                 </div>
             </div>
@@ -99,7 +99,7 @@ $viewMode = $view_mode ?? 'docs';
 
         <div class="text-center mt-4 d-flex justify-content-center gap-3">
             <button onclick="window.print()" class="btn btn-primary px-4 fw-bold">🖨 Print Invoice</button>
-            <a href="<?= BASE_URL ?>/dashboard" class="btn btn-outline-light px-4">Back to Dashboard</a>
+            <a href="<?= BASE_URL ?>/" class="btn btn-outline-light px-4">Back to Home</a>
         </div>
     </div>
 

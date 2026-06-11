@@ -189,7 +189,7 @@ use App\Core\Session;
 
 <!-- Blockchain Certificate Modal -->
 <div id="certificateModal" class="modal-overlay">
-    <div class="premium-modal text-center text-dark bg-white rounded-4 p-5 shadow-2xl position-relative" style="max-width: 650px;">
+    <div class="premium-modal text-center  bg-surface rounded-4 p-5 shadow-2xl position-relative" style="max-width: 650px;">
         <button id="closeCertModal" class="position-absolute top-3 right-3 btn-close border-0" style="font-size: 1.2rem;"></button>
         
         <!-- Border Layout -->
@@ -198,7 +198,7 @@ use App\Core\Session;
             <span class="fs-8 text-muted block mb-4">DECENTRALIZED SKILL LEDGER CERTIFICATE</span>
             
             <p class="text-muted italic fs-7 mb-2">This is to certify that</p>
-            <h2 class="font-outfit fw-bold text-dark mb-3" id="certStudentName">Kaushik Verma</h2>
+            <h2 class="font-outfit fw-bold  mb-3" id="certStudentName">Kaushik Verma</h2>
             <p class="text-muted fs-7 mb-3">has successfully completed all testing parameters for the program</p>
             
             <h4 class="font-outfit fw-bold text-teal mb-4" id="certCourseTitle">Madhubani Painting Masterclass</h4>
@@ -209,7 +209,7 @@ use App\Core\Session;
                     <strong>Platform Fee:</strong> Paid via UPI
                 </div>
                 <div class="text-end">
-                    <span style="font-family: 'Brush Script MT', cursive, sans-serif; font-size: 1.6rem; color: #555;">Super Admin</span>
+                    <span style="font-family: 'Brush Script MT', cursive, sans-serif; font-size: 1.6rem; color: var(--text);">Super Admin</span>
                     <hr class="my-1 border-dark" style="width: 120px;">
                     <span class="fs-8 text-muted">Authorized Signatory</span>
                 </div>

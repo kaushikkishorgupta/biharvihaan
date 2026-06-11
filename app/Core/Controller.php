@@ -25,6 +25,14 @@ class Controller {
 
     // Renders web page layouts
     public function render($view, $data = []) {
+        // Globally fetch settings and menus if not provided
+        if (!isset($data['settings'])) {
+            $data['settings'] = [];
+        }
+        if (!isset($data['menus'])) {
+            $data['menus'] = [];
+        }
+        
         // Extract variables to page scope
         extract($data);
         

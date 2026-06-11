@@ -3,11 +3,11 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-    
+
     // 1. Theme Switcher System
     const themeToggle = document.getElementById('theme-toggle');
     const themeIcon = document.getElementById('theme-icon');
-    
+
     // Retrieve saved theme or default to light
     const currentTheme = localStorage.getItem('theme') || 'light';
     document.documentElement.setAttribute('data-theme', currentTheme);
@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
         themeToggle.addEventListener('click', () => {
             const activeTheme = document.documentElement.getAttribute('data-theme');
             const newTheme = activeTheme === 'dark' ? 'light' : 'dark';
-            
+
             document.documentElement.setAttribute('data-theme', newTheme);
             localStorage.setItem('theme', newTheme);
             updateThemeIcon(newTheme);
@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (searchInput && searchDropdown) {
         let debounceTimer;
-        
+
         searchInput.addEventListener('input', (e) => {
             clearTimeout(debounceTimer);
             const query = e.target.value.trim();
@@ -180,7 +180,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
                 <textarea name="days[]" placeholder="List destinations, transport timings, lunch breaks, or sights to visit today..." rows="3" class="razorpay-field" style="width:100%; border:1px solid var(--border-color); background:rgba(255,255,255,0.02); color:white; padding:10px; border-radius:8px;" required></textarea>
             `;
-            
+
             // Add remove handler
             dayBox.querySelector('.remove-day-btn').addEventListener('click', () => {
                 dayBox.remove();

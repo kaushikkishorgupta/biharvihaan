@@ -159,7 +159,7 @@ class TourismController extends Controller {
             Session::setFlash('error', 'Could not save itinerary. Try again.');
         }
 
-        $this->redirect('/dashboard');
+        $this->redirect('/');
     }
 
     // GET /tourism/ai-planner

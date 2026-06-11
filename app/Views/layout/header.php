@@ -43,6 +43,13 @@ $currentUri = $_SERVER['REQUEST_URI'];
 
     <script>
         window.baseUrl = "<?= BASE_URL ?>";
+        // Dark mode persistence - prevent white flash
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        } else {
+            document.documentElement.removeAttribute('data-theme');
+        }
     </script>
 
     <!-- Structured SEO JSON-LD Schema -->
@@ -101,19 +108,34 @@ $currentUri = $_SERVER['REQUEST_URI'];
 
         <div class="collapse navbar-collapse-custom d-none d-lg-flex align-items-center gap-4">
             <nav class="d-flex align-items-center gap-2">
-                <a class="nav-link <?= ($currentUri === '/' || $currentUri === '/biharvihaan/') ? 'active' : '' ?>" href="<?= BASE_URL ?>/">Home</a>
-                <a class="nav-link <?= (strpos($currentUri, '/tourism') !== false) ? 'active' : '' ?>" href="<?= BASE_URL ?>/tourism">Tourism</a>
-                <a class="nav-link <?= (strpos($currentUri, '/directory') !== false || strpos($currentUri, '/business') !== false) ? 'active' : '' ?>" href="<?= BASE_URL ?>/directory">Directory</a>
-                <a class="nav-link <?= (strpos($currentUri, '/gallery') !== false) ? 'active' : '' ?>" href="<?= BASE_URL ?>/gallery">Gallery</a>
-                <a class="nav-link <?= (strpos($currentUri, '/services') !== false) ? 'active' : '' ?>" href="<?= BASE_URL ?>/services">Services</a>
-                <a class="nav-link <?= (strpos($currentUri, '/about') !== false) ? 'active' : '' ?>" href="<?= BASE_URL ?>/about">About</a>
-                <a class="nav-link <?= (strpos($currentUri, '/contact') !== false) ? 'active' : '' ?>" href="<?= BASE_URL ?>/contact">Contact</a>
-                <a class="nav-link <?= (strpos($currentUri, '/shop') !== false) ? 'active' : '' ?>" href="<?= BASE_URL ?>/shop">Shop</a>
+                <?php 
+                $staticMenus = [
+                    ['url' => '/', 'label' => 'Home'],
+                    ['url' => '/tourism', 'label' => 'Tourism'],
+                    ['url' => '/directory', 'label' => 'Directory'],
+                    ['url' => '/gallery', 'label' => 'Gallery'],
+                    ['url' => '/shop', 'label' => 'Marketplace'],
+                    ['url' => '/contact', 'label' => 'Contact']
+                ];
+                foreach ($staticMenus as $menuItem): 
+                ?>
+                    <a class="nav-link <?= (strpos($currentUri, $menuItem['url']) !== false && $menuItem['url'] !== '/') || ($currentUri === '/' && $menuItem['url'] === '/') ? 'active' : '' ?>" href="<?= BASE_URL ?><?= htmlspecialchars($menuItem['url']) ?>">
+                        <?= htmlspecialchars($menuItem['label']) ?>
+                    </a>
+                <?php endforeach; ?>
             </nav>
 
             <div class="d-flex align-items-center gap-2">
+                <!-- Marketplace Icons -->
+                <a href="<?= BASE_URL ?>/marketplace/wishlist" class="btn btn-light btn-sm position-relative rounded-circle me-1" title="Wishlist" style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;">
+                    <i class="fa-regular fa-heart text-muted"></i>
+                </a>
+                <a href="<?= BASE_URL ?>/marketplace/cart" class="btn btn-light btn-sm position-relative rounded-pill px-3 me-2" title="Cart" style="display: flex; align-items: center; gap: 5px;">
+                    <i class="fa-solid fa-cart-shopping text-primary"></i> <span class="fw-bold">Cart (0)</span>
+                </a>
+
                 <?php if (Auth::check()): ?>
-                    <a href="<?= BASE_URL ?>/dashboard" class="btn btn-primary btn-sm px-3">Dashboard</a>
+                    <span class="text-main small fw-bold me-2">Hi, <?= htmlspecialchars(Session::get('user_name') ?? 'User') ?></span>
                     <a href="<?= BASE_URL ?>/logout" class="btn btn-outline btn-sm px-3">Log Out</a>
                 <?php else: ?>
                     <a class="nav-link <?= (strpos($currentUri, '/login') !== false) ? 'active' : '' ?>" href="<?= BASE_URL ?>/login">Sign In</a>
@@ -140,21 +162,17 @@ $currentUri = $_SERVER['REQUEST_URI'];
     </div>
 </header>
 
-<!-- Mobile Navigation Sidebar/Dropdown (bootstrap collapse) -->
 <div class="collapse d-lg-none" id="mainNavbar" style="position: fixed; top: 85px; left: 0; right: 0; background: var(--bg-card); z-index: 999; border-bottom: 1px solid var(--border-color); padding: 1.5rem; max-height: calc(100vh - 85px); overflow-y: auto;">
     <div class="d-flex flex-column gap-3">
-        <a class="nav-link <?= ($currentUri === '/' || $currentUri === '/biharvihaan/') ? 'active' : '' ?>" href="<?= BASE_URL ?>/">Home</a>
-        <a class="nav-link <?= (strpos($currentUri, '/tourism') !== false) ? 'active' : '' ?>" href="<?= BASE_URL ?>/tourism">Tourism</a>
-        <a class="nav-link <?= (strpos($currentUri, '/directory') !== false || strpos($currentUri, '/business') !== false) ? 'active' : '' ?>" href="<?= BASE_URL ?>/directory">Directory</a>
-        <a class="nav-link <?= (strpos($currentUri, '/gallery') !== false) ? 'active' : '' ?>" href="<?= BASE_URL ?>/gallery">Gallery</a>
-        <a class="nav-link <?= (strpos($currentUri, '/services') !== false) ? 'active' : '' ?>" href="<?= BASE_URL ?>/services">Services</a>
-        <a class="nav-link <?= (strpos($currentUri, '/about') !== false) ? 'active' : '' ?>" href="<?= BASE_URL ?>/about">About</a>
-        <a class="nav-link <?= (strpos($currentUri, '/contact') !== false) ? 'active' : '' ?>" href="<?= BASE_URL ?>/contact">Contact</a>
-        <a class="nav-link <?= (strpos($currentUri, '/shop') !== false) ? 'active' : '' ?>" href="<?= BASE_URL ?>/shop">Shop</a>
+        <?php foreach ($staticMenus as $menuItem): ?>
+            <a class="nav-link <?= (strpos($currentUri, $menuItem['url']) !== false && $menuItem['url'] !== '/') || ($currentUri === '/' && $menuItem['url'] === '/') ? 'active' : '' ?>" href="<?= BASE_URL ?><?= htmlspecialchars($menuItem['url']) ?>">
+                <?= htmlspecialchars($menuItem['label']) ?>
+            </a>
+        <?php endforeach; ?>
         <hr style="border-color: var(--border-color); margin: 0.5rem 0;">
         <div class="d-flex flex-wrap align-items-center gap-2">
             <?php if (Auth::check()): ?>
-                <a href="<?= BASE_URL ?>/dashboard" class="btn btn-primary btn-sm px-3">Dashboard</a>
+                <span class="text-main small fw-bold me-2">Hi, <?= htmlspecialchars(Session::get('user_name') ?? 'User') ?></span>
                 <a href="<?= BASE_URL ?>/logout" class="btn btn-outline btn-sm px-3">Log Out</a>
             <?php else: ?>
                 <a class="nav-link me-2" href="<?= BASE_URL ?>/login">Sign In</a>

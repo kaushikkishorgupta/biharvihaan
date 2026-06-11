@@ -104,7 +104,7 @@ class BusinessController extends Controller {
 
         if ($listingId <= 0) {
             Session::setFlash('error', 'Invalid listing details.');
-            $this->redirect('/dashboard');
+            $this->redirect('/');
         }
 
         $businessModel = new Business();
@@ -117,6 +117,6 @@ class BusinessController extends Controller {
             Session::setFlash('error', 'Plan upgrade failed. Try again.');
         }
 
-        $this->redirect('/dashboard');
+        $this->redirect('/');
     }
 }

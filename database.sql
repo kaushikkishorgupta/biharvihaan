@@ -920,3 +920,57 @@ INSERT INTO `coupons` (`code`, `discount_type`, `value`, `expires_at`) VALUES
 ('BIHAR20', 'percent', 20.00, '2027-12-31');
 
 COMMIT;
+CREATE TABLE IF NOT EXISTS `pages` (
+  `id` INT AUTO_INCREMENT PRIMARY KEY,
+  `slug` VARCHAR(100) NOT NULL UNIQUE,
+  `title` VARCHAR(150) NOT NULL,
+  `meta_title` VARCHAR(255) NULL,
+  `meta_description` TEXT NULL,
+  `status` ENUM('published', 'draft') DEFAULT 'published',
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `page_sections` (
+  `id` INT AUTO_INCREMENT PRIMARY KEY,
+  `page_id` INT NOT NULL,
+  `section_key` VARCHAR(100) NOT NULL,
+  `content_json` JSON NOT NULL,
+  `order_index` INT DEFAULT 0,
+  `is_active` TINYINT(1) DEFAULT 1,
+  FOREIGN KEY (`page_id`) REFERENCES `pages` (`id`) ON DELETE CASCADE,
+  UNIQUE KEY `page_section_unique` (`page_id`, `section_key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `media` (
+  `id` INT AUTO_INCREMENT PRIMARY KEY,
+  `file_name` VARCHAR(255) NOT NULL,
+  `file_path` VARCHAR(255) NOT NULL,
+  `file_type` VARCHAR(50) NOT NULL,
+  `size_bytes` INT NOT NULL,
+  `folder` VARCHAR(100) DEFAULT 'general',
+  `uploaded_by` INT NULL,
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (`uploaded_by`) REFERENCES `users` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `menu_items` (
+  `id` INT AUTO_INCREMENT PRIMARY KEY,
+  `label` VARCHAR(100) NOT NULL,
+  `url` VARCHAR(255) NOT NULL,
+  `parent_id` INT NULL,
+  `order_index` INT DEFAULT 0,
+  `is_active` TINYINT(1) DEFAULT 1,
+  FOREIGN KEY (`parent_id`) REFERENCES `menu_items` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Insert default pages
+INSERT IGNORE INTO `pages` (`id`, `slug`, `title`) VALUES 
+(1, 'home', 'Homepage'),
+(2, 'about', 'About Us'),
+(3, 'services', 'Services'),
+(4, 'tourism', 'Tourism'),
+(5, 'directory', 'Directory'),
+(6, 'gallery', 'Gallery'),
+(7, 'marketplace', 'Marketplace'),
+(8, 'contact', 'Contact Us');

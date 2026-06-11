@@ -59,7 +59,7 @@ class BookingController extends Controller {
             ]);
 
             Session::setFlash('success', 'Booking request submitted! Complete payment to confirm.');
-            $this->redirect('/dashboard');
+            $this->redirect('/');
         } else {
             Session::setFlash('error', 'Failed to request booking. Please try again.');
             $this->redirect('/bookings');

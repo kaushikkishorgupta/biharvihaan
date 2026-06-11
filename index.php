@@ -34,6 +34,15 @@ $router->get('/services', 'HomeController', 'services');
 $router->get('/contact', 'HomeController', 'contact');
 $router->post('/contact', 'HomeController', 'handleContact');
 
+
+// Tourism Routes
+
+// Directory Routes
+
+// Marketplace Routes
+
+
+// Fallback for SPA routes or React (if applicable)
 // Phase 1 Additional Core Routes
 $router->get('/gallery', 'GalleryController', 'index');
 $router->get('/gallery/load', 'GalleryController', 'loadMore');
@@ -120,13 +129,6 @@ $router->get('/government', 'GovController', 'index');
 // ========================================================
 // 7. SUPER ADMIN DASHBOARD MODULE ROUTES
 // ========================================================
-$router->get('/dashboard', 'DashboardController', 'index');
-$router->post('/dashboard/user-role', 'DashboardController', 'handleUserRole');
-$router->post('/dashboard/verify-business', 'DashboardController', 'handleVerifyBusiness');
-$router->post('/dashboard/app-status', 'DashboardController', 'handleAppStatus');
-$router->post('/dashboard/add-destination', 'DashboardController', 'handleAddDestination');
-$router->post('/dashboard/add-event', 'DashboardController', 'handleAddEvent');
-$router->post('/dashboard/gallery-action', 'DashboardController', 'handleGalleryAction');
 $router->get('/invoice', 'DashboardController', 'invoice');
 
 // ========================================================

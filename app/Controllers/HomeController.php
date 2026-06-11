@@ -13,9 +13,9 @@ use App\Models\Event;
 class HomeController extends Controller {
 
     public function index() {
-        $destModel = new Destination();
-        $eventModel = new Event();
-
+        $destModel = new \App\Models\Destination();
+        $eventModel = new \App\Models\Event();
+        
         // Fetch trending spots (limit list)
         $trending = $destModel->all();
         // Fetch upcoming festivals
@@ -24,16 +24,19 @@ class HomeController extends Controller {
         $events = $eventModel->getEvents();
 
         $this->render('home', [
-            'title' => 'Bihar Vihaan Enterprise - Explore Bihar Tourism',
+            'title' => 'Bihar Vihaan - Complete Enterprise 5.0',
+            'meta_description' => 'Discover the heritage, culture, and business opportunities of Bihar.',
             'trending' => array_slice($trending, 0, 3),
             'festivals' => array_slice($festivals, 0, 3),
-            'events' => array_slice($events, 0, 3)
+            'sections' => [],
+            'menus' => [],
+            'settings' => []
         ]);
     }
 
     public function login() {
         if (Auth::check()) {
-            $this->redirect('/dashboard');
+            $this->redirect('/');
         }
 
         $this->render('home', [
@@ -60,7 +63,7 @@ class HomeController extends Controller {
             }
             
             Session::setFlash('success', "Welcome back, " . htmlspecialchars($user['name']) . "!");
-            $this->redirect('/dashboard');
+            $this->redirect('/');
         } else {
             Session::setFlash('error', 'Invalid login credentials or suspended account.');
             $this->redirect('/login');
@@ -69,7 +72,7 @@ class HomeController extends Controller {
 
     public function register() {
         if (Auth::check()) {
-            $this->redirect('/dashboard');
+            $this->redirect('/');
         }
 
         $this->render('home', [
@@ -119,7 +122,7 @@ class HomeController extends Controller {
 
     public function forgotPassword() {
         if (Auth::check()) {
-            $this->redirect('/dashboard');
+            $this->redirect('/');
         }
 
         $this->render('home', [
@@ -186,7 +189,7 @@ class HomeController extends Controller {
             Session::remove('temp_2fa_user_id');
             
             Session::setFlash('success', "Two-Factor verification successful!");
-            $this->redirect('/dashboard');
+            $this->redirect('/');
         } else {
             Session::setFlash('error', 'Invalid Two-Factor Code. Please enter 123456 to bypass demo lock.');
             $this->redirect('/2fa');
@@ -242,7 +245,7 @@ class HomeController extends Controller {
         
         Logger::log('Google Social Login', "User authenticated via Google OAuth.");
         Session::setFlash('success', 'Logged in successfully with Google!');
-        $this->redirect('/dashboard');
+        $this->redirect('/');
     }
 
     public function facebookLogin() {
@@ -269,7 +272,7 @@ class HomeController extends Controller {
         
         Logger::log('Facebook Social Login', "User authenticated via Facebook OAuth.");
         Session::setFlash('success', 'Logged in successfully with Facebook!');
-        $this->redirect('/dashboard');
+        $this->redirect('/');
     }
 
     public function about() {

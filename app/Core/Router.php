@@ -59,6 +59,16 @@ class Router {
                 $controllerClass = "App\\Controllers\\" . $routeInfo['controller'];
                 $action = $routeInfo['action'];
 
+                // Global CSRF Protection for POST/PUT/DELETE
+                if (in_array($requestMethod, ['POST', 'PUT', 'DELETE'])) {
+                    if (!isset($_POST['csrf_token']) || !Security::verifyCsrfToken($_POST['csrf_token'])) {
+                        $this->abort("Invalid CSRF Token. Please refresh and try again.", 403);
+                        return;
+                    }
+                }
+
+
+
                 if (class_exists($controllerClass)) {
                     $controller = new $controllerClass();
                     if (method_exists($controller, $action)) {

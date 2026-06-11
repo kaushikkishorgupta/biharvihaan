@@ -17,7 +17,7 @@ $csrfToken = Session::generateCsrfToken();
                         
                         <div class="d-flex gap-2">
                             <?php if ($listing['plan'] !== 'free'): ?>
-                                <span class="badge bg-warning text-dark border-warning px-2 py-1 rounded-pill small"><?= htmlspecialchars($listing['plan']) ?></span>
+                                <span class="badge bg-warning  border-warning px-2 py-1 rounded-pill small"><?= htmlspecialchars($listing['plan']) ?></span>
                             <?php endif; ?>
                             <?php if ($listing['verification_status'] === 'verified'): ?>
                                 <span class="verified-badge">✓ Verified Listing</span>
@@ -122,7 +122,7 @@ $csrfToken = Session::generateCsrfToken();
                                 
                                 <div class="d-flex gap-1 align-items-center">
                                     <?php if ($list['plan'] !== 'free'): ?>
-                                        <span class="badge bg-warning text-dark rounded-pill small" style="font-size:0.65rem;"><?= htmlspecialchars($list['plan']) ?></span>
+                                        <span class="badge bg-warning  rounded-pill small" style="font-size:0.65rem;"><?= htmlspecialchars($list['plan']) ?></span>
                                     <?php endif; ?>
                                     <?php if ($list['verification_status'] === 'verified'): ?>
                                         <span class="verified-badge" style="font-size:0.65rem;">✓ Verified</span>
@@ -145,7 +145,7 @@ $csrfToken = Session::generateCsrfToken();
 
         <!-- Ad slots banner -->
         <div class="p-5 rounded-4 shadow-lg text-center position-relative overflow-hidden" style="background-color: var(--bg-soft); border: 1px solid var(--border-color);" data-aos="fade-up">
-            <span class="badge bg-warning text-dark border-warning px-3 py-2 rounded-pill mb-3 small fw-bold">SPONSORED CAMPAIGN</span>
+            <span class="badge bg-warning  border-warning px-3 py-2 rounded-pill mb-3 small fw-bold">SPONSORED CAMPAIGN</span>
             <h2 class="h3 fw-bold mb-2 font-outfit" style="color: var(--text-main);">Explore Ancient Rajgir Safaris</h2>
             <p class="small mb-4 max-w-2xl mx-auto" style="color: var(--text-secondary); max-width: 650px;">Book premium local cab systems directly via Bihar Vihaan and claim 15% discount coupons on holiday travel packages.</p>
             <a href="<?= BASE_URL ?>/business/ad-click?ad_name=rajgir_safari_banner" class="btn btn-primary px-4 fw-bold">Claim Discount Voucher</a>

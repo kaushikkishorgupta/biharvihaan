@@ -1,145 +1,134 @@
+﻿/**
+ * Bihar Vihaan Enterprise 5.0 - Premium Marketplace JS
+ */
+
 document.addEventListener('DOMContentLoaded', () => {
+
+    // 1. AJAX Search & Live Suggestions
+    const searchInput = document.getElementById('marketplace-search');
+    const searchSuggestions = document.getElementById('search-suggestions');
     
-    let currentPage = 1;
-    let currentCategory = 'All';
-    let currentSort = 'newest';
-    let isLoading = false;
-    let hasMore = true;
-
-    const grid = document.getElementById('shop-masonry');
-    const loader = document.getElementById('shop-loader');
-    const categoryLinks = document.querySelectorAll('.cat-filter');
-    const sortSelect = document.getElementById('sort-select');
-
-    // Filter by Category
-    categoryLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            categoryLinks.forEach(l => l.classList.remove('active'));
-            e.target.classList.add('active');
-            
-            currentCategory = e.target.dataset.cat;
-            resetGrid();
-        });
-    });
-
-    // Sort by Dropdown
-    if(sortSelect) {
-        sortSelect.addEventListener('change', (e) => {
-            currentSort = e.target.value;
-            resetGrid();
-        });
-    }
-
-    function resetGrid() {
-        currentPage = 1;
-        hasMore = true;
-        grid.innerHTML = '';
-        loadProducts();
-    }
-
-    // Infinite Scroll
-    if(loader) {
-        const observer = new IntersectionObserver((entries) => {
-            if(entries[0].isIntersecting && !isLoading && hasMore) {
-                currentPage++;
-                loadProducts();
-            }
-        }, { rootMargin: '200px' });
-        observer.observe(loader);
-    }
-
-    async function loadProducts() {
-        if(isLoading || !hasMore) return;
-        isLoading = true;
-        loader.classList.add('active');
-
-        try {
-            const res = await fetch(`${window.baseUrl}/shop/load?category=${encodeURIComponent(currentCategory)}&sort=${currentSort}&page=${currentPage}`);
-            const data = await res.json();
-
-            if(data.products && data.products.length > 0) {
-                data.products.forEach(p => {
-                    const priceFormatted = new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(p.price);
-                    
-                    const html = `
-                    <div class="product-card">
-                        <div class="product-img-wrapper">
-                            <img src="${p.image_url}" alt="${p.name}" loading="lazy" onerror="this.src='${window.baseUrl}/assets/images/fallback.jpg'">
-                            <div class="product-actions">
-                                <button class="product-btn" onclick="toggleWishlist(${p.id})"><i class="fa-regular fa-heart"></i></button>
-                                <button class="product-btn quick-view" onclick="openQuickView(${p.id})"><i class="fa-solid fa-eye"></i> Quick View</button>
-                            </div>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-category">${p.category}</div>
-                            <h4 class="product-title">${p.name}</h4>
-                            <div class="product-artisan"><i class="fa-solid fa-user-pen"></i> By ${p.artisan_name || 'Verified Artisan'}</div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="product-price">${priceFormatted}</div>
-                                <div class="text-warning small"><i class="fa-solid fa-star"></i> ${p.rating}</div>
-                            </div>
-                        </div>
-                    </div>`;
-                    grid.insertAdjacentHTML('beforeend', html);
-                });
+    if (searchInput && searchSuggestions) {
+        searchInput.addEventListener('input', debounce(function() {
+            const query = this.value.trim();
+            if (query.length > 2) {
+                // In a real app, this would fetch from an API endpoint
+                // For demonstration, simulating live results
+                searchSuggestions.innerHTML = 
+                    <a href="#" class="dropdown-item py-2 border-bottom"><i class="fa-solid fa-search text-muted me-2"></i> +query+ in Madhubani Paintings</a>
+                    <a href="#" class="dropdown-item py-2 border-bottom"><i class="fa-solid fa-search text-muted me-2"></i> +query+ in Handicrafts</a>
+                    <a href="#" class="dropdown-item py-2 text-primary fw-bold">View all results for "+query+"</a>
+                ;
+                searchSuggestions.classList.add('show');
             } else {
-                hasMore = false;
+                searchSuggestions.classList.remove('show');
             }
-        } catch(e) {
-            console.error('Error loading products', e);
-        }
+        }, 300));
 
-        isLoading = false;
-        loader.classList.remove('active');
-    }
-
-    // Quick View Logic
-    const qvModal = document.getElementById('quickview-modal');
-    if(qvModal) {
-        window.openQuickView = async function(id) {
-            qvModal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-            
-            // Show loading state internally
-            document.getElementById('qv-title').textContent = 'Loading...';
-            
-            try {
-                const res = await fetch(`${window.baseUrl}/shop/quick-view?id=${id}`);
-                const data = await res.json();
-                if(data.success) {
-                    const p = data.product;
-                    const priceFormatted = new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(p.price);
-                    
-                    document.getElementById('qv-img').src = p.image_url;
-                    document.getElementById('qv-title').textContent = p.name;
-                    document.getElementById('qv-price').textContent = priceFormatted;
-                    document.getElementById('qv-desc').textContent = p.description;
-                    document.getElementById('qv-artisan').textContent = p.artisan_name || 'Verified Artisan';
-                    document.getElementById('qv-artisan-bio').textContent = p.artisan_bio || '';
-                    document.getElementById('qv-location').textContent = p.location || 'Bihar';
-                    document.getElementById('qv-materials').textContent = p.materials || 'Traditional materials';
-                    document.getElementById('qv-product-id').value = p.id;
-                }
-            } catch(e) {
-                console.error(e);
-            }
-        };
-
-        document.getElementById('qv-close').addEventListener('click', () => {
-            qvModal.classList.remove('active');
-            document.body.style.overflow = '';
-        });
-
-        qvModal.addEventListener('click', (e) => {
-            if(e.target === qvModal) {
-                qvModal.classList.remove('active');
-                document.body.style.overflow = '';
+        // Hide suggestions on outside click
+        document.addEventListener('click', (e) => {
+            if (!searchInput.contains(e.target) && !searchSuggestions.contains(e.target)) {
+                searchSuggestions.classList.remove('show');
             }
         });
     }
 
+    // 2. Wishlist Toggle
     window.toggleWishlist = function(id) {
-        alert('Added to your Wishlist!');
+        // Toggle the button style
+        const btn = event.currentTarget;
+        btn.classList.toggle('active');
+        
+        const icon = btn.querySelector('i');
+        if (btn.classList.contains('active')) {
+            icon.classList.remove('fa-regular');
+            icon.classList.add('fa-solid');
+            // Show toast notification
+            showToast('Added to Wishlist');
+        } else {
+            icon.classList.remove('fa-solid');
+            icon.classList.add('fa-regular');
+            showToast('Removed from Wishlist');
+        }
+    };
+
+    // 3. Quick View Modal
+    const quickViewModal = document.getElementById('quickViewModal');
+    let bsModal;
+    
+    if (quickViewModal && typeof bootstrap !== 'undefined') {
+        bsModal = new bootstrap.Modal(quickViewModal);
+    }
+
+    window.openQuickView = function(id) {
+        // Fetch via AJAX
+        fetch(window.baseUrl + '/api/marketplace/quickview?id=' + id)
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    const p = data.product;
+                    document.getElementById('qv-img').src = p.image_url || window.baseUrl + '/assets/images/fallback.jpg';
+                    document.getElementById('qv-title').innerText = p.name;
+                    document.getElementById('qv-price').innerText = '₹' + parseFloat(p.price).toLocaleString();
+                    document.getElementById('qv-category').innerText = p.category;
+                    document.getElementById('qv-desc').innerText = p.description || 'Authentic handcrafted piece from Bihar.';
+                    document.getElementById('qv-artisan').innerText = p.artisan_name || 'Verified Craftsman';
+                    document.getElementById('qv-product-id').value = p.id;
+                    
+                    if (bsModal) bsModal.show();
+                } else {
+                    alert('Product details could not be loaded.');
+                }
+            })
+            .catch(err => console.error(err));
+    };
+
+    // Helper: Debounce
+    function debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func.apply(this, args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    }
+
+    // Helper: Toast Notification
+    function showToast(message) {
+        const toastContainer = document.getElementById('toast-container') || createToastContainer();
+        
+        const toast = document.createElement('div');
+        toast.className = 'toast align-items-center text-white bg-dark border-0 show';
+        toast.setAttribute('role', 'alert');
+        toast.setAttribute('aria-live', 'assertive');
+        toast.setAttribute('aria-atomic', 'true');
+        
+        toast.innerHTML = 
+            <div class="d-flex">
+                <div class="toast-body">
+                    <i class="fa-solid fa-check-circle text-success me-2"></i> 
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        ;
+        
+        toastContainer.appendChild(toast);
+        
+        setTimeout(() => {
+            toast.classList.remove('show');
+            setTimeout(() => toast.remove(), 300);
+        }, 3000);
+    }
+
+    function createToastContainer() {
+        const container = document.createElement('div');
+        container.id = 'toast-container';
+        container.className = 'toast-container position-fixed bottom-0 end-0 p-3';
+        container.style.zIndex = '9999';
+        document.body.appendChild(container);
+        return container;
     }
 });

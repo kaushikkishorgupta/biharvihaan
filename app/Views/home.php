@@ -182,25 +182,23 @@ $csrfToken = Session::generateCsrfToken();
                playsinline
                preload="auto"
                poster="<?= BASE_URL ?>/assets/images/hero-fallback.jpg">
-            <source src="<?= BASE_URL ?>/assets/videos/bihar-hero.mp4" type="video/mp4">
+            <source src="<?= BASE_URL ?><?= htmlspecialchars($sections['hero']['bg_video'] ?? '/assets/videos/bihar-hero.mp4') ?>" type="video/mp4">
         </video>
 
-        <!-- Dual Overlays & Cinematic Blur Overlay -->
-        <div class="hero-overlay-dark"></div>
-        <div class="hero-overlay-gradient"></div>
-        <div class="hero-overlay-blur"></div>
+        <!-- Hero Overlay -->
+        <div class="hero-overlay"></div>
 
         <div class="hero-content">
             <span class="badge bg-primary text-white border border-primary px-3 py-2 rounded-pill mb-3 small fw-bold text-uppercase tracking-wider">Cradle of Ancient Civilizations</span>
-            <h1>Discover the Real Bihar</h1>
+            <h1><?= htmlspecialchars($sections['hero']['title'] ?? 'Discover the Real Bihar') ?></h1>
             <p class="hero-subtitle">
-                Explore ancient empires, holy spiritual circuits, unique folk heritages, local businesses, and infinite travel opportunities across the heart of Bihar.
+                <?= htmlspecialchars($sections['hero']['subtitle'] ?? 'Explore ancient empires, holy spiritual circuits, unique folk heritages, local businesses, and infinite travel opportunities across the heart of Bihar.') ?>
             </p>
 
             <!-- Interactive & Animated Search Bar -->
             <div class="search-wrapper position-relative mx-auto mb-5" style="width: 100%; max-width: 650px;">
-                <div class="d-flex bg-white border-0 p-2 rounded-pill shadow-lg search-bar-glow">
-                    <input type="text" id="search-query" class="form-control border-0 px-4 fs-5 rounded-pill" placeholder="Search Bodh Gaya, Nalanda, Rajgir, Sasaram..." autocomplete="off" style="box-shadow: none !important; color: #201515 !important;">
+                <div class="d-flex bg-surface border-0 p-2 rounded-pill shadow-lg search-bar-glow">
+                    <input type="text" id="search-query" class="form-control border-0 px-4 fs-5 rounded-pill" placeholder="Search Bodh Gaya, Nalanda, Rajgir, Sasaram..." autocomplete="off" style="box-shadow: none !important; color: var(--text);">
                     <button class="btn btn-primary px-4 rounded-pill" style="min-width: 60px;"><i class="fa-solid fa-magnifying-glass"></i></button>
                 </div>
                 <div id="search-dropdown" class="search-results-dropdown w-100 bg-card rounded-4 border border-color shadow-lg mt-2 text-start"></div>
@@ -208,8 +206,8 @@ $csrfToken = Session::generateCsrfToken();
 
             <!-- Primary Actions -->
             <div class="d-flex justify-content-center gap-3 flex-wrap mb-5">
-                <a href="<?= BASE_URL ?>/tourism" class="btn btn-primary btn-lg rounded-pill px-4">
-                    Explore Bihar <i class="fa-solid fa-compass ms-1"></i>
+                <a href="<?= BASE_URL ?><?= htmlspecialchars($sections['hero']['btn1_url'] ?? '/tourism') ?>" class="btn btn-primary btn-lg rounded-pill px-4">
+                    <?= htmlspecialchars($sections['hero']['btn1_text'] ?? 'Explore Bihar') ?> <i class="fa-solid fa-compass ms-1"></i>
                 </a>
                 <a href="<?= BASE_URL ?>/directory" class="btn btn-outline-light btn-lg rounded-pill px-4">
                     List Your Business <i class="fa-solid fa-briefcase ms-1"></i>
@@ -219,12 +217,12 @@ $csrfToken = Session::generateCsrfToken();
             <!-- Statistics Grid -->
             <div class="hero-stats-row d-flex justify-content-center gap-4 gap-md-5 flex-wrap">
                 <div class="stat-item text-center">
-                    <div class="stat-num">500+</div>
-                    <div class="stat-label text-uppercase">Destinations</div>
+                    <div class="stat-num"><?= htmlspecialchars($sections['stats']['stat1_num'] ?? '500+') ?></div>
+                    <div class="stat-label text-uppercase"><?= htmlspecialchars($sections['stats']['stat1_lbl'] ?? 'Destinations') ?></div>
                 </div>
                 <div class="stat-item text-center">
-                    <div class="stat-num">1,000+</div>
-                    <div class="stat-label text-uppercase">Verified Businesses</div>
+                    <div class="stat-num"><?= htmlspecialchars($sections['stats']['stat2_num'] ?? '1,000+') ?></div>
+                    <div class="stat-label text-uppercase"><?= htmlspecialchars($sections['stats']['stat2_lbl'] ?? 'Verified Businesses') ?></div>
                 </div>
                 <div class="stat-item text-center">
                     <div class="stat-num">50+</div>
@@ -532,19 +530,7 @@ $csrfToken = Session::generateCsrfToken();
         </div>
     </section>
 
-    <!-- Chhath Festival Highlight Banner -->
-    <section class="py-5 position-relative text-white overflow-hidden" style="background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.8)), url('<?= BASE_URL ?>/assets/images/hero-fallback.jpg') no-repeat center center/cover; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);">
-        <div class="container py-5 text-center position-relative" style="z-index: 2;">
-            <span class="badge bg-warning text-dark border border-warning px-3 py-2 rounded-pill mb-3 small fw-bold text-uppercase">Mahaparv Celebration</span>
-            <h2 class="display-4 fw-bold font-outfit mb-3" style="color: #ffffff;">Chhath Puja Mahaparv</h2>
-            <p class="lead max-w-lg mx-auto mb-4" style="max-width: 700px; margin: 0 auto; color: rgba(255, 255, 255, 0.9);">
-                Witness the grand, eco-friendly Vedic festival dedicated to the Sun God (Surya) and Chhathi Maiya. Celebrated with absolute purity, continuous fasting, and spiritual offerings along the holy ghats of Bihar.
-            </p>
-            <a href="<?= BASE_URL ?>/events" class="btn btn-primary rounded-pill btn-lg px-4" style="background-color: var(--primary) !important; border-color: var(--primary) !important;">
-                View Festival Calendar <i class="fa-solid fa-calendar-days ms-1"></i>
-            </a>
-        </div>
-    </section>
+
 
     <!-- Spiritual/Cultural Festivals Calendar -->
     <section class="py-5" style="background-color: var(--bg-main);">
@@ -593,10 +579,10 @@ $csrfToken = Session::generateCsrfToken();
         
         <div class="container position-relative" style="z-index: 2;">
             <div class="text-center mb-5" data-aos="fade-up">
-                <span class="badge badge-glow text-uppercase px-3 py-2 rounded-pill mb-3 fw-bold">Trusted By</span>
-                <h2 class="section-heading mb-3 text-white" style="font-family: 'Outfit', sans-serif;">Our Clients & Partners</h2>
-                <p class="body-text-custom text-white-50" style="max-width: 700px; margin: 0 auto;">
-                    Partnering with leading institutions, tourism organizations, educational centers, and enterprises across Bihar.
+                <span class="badge text-uppercase px-3 py-2 rounded-pill mb-3 fw-bold" style="color: #0B3D91; border: 1px solid #0B3D91; background: rgba(11, 61, 145, 0.1);">Trusted By</span>
+                <h2 class="section-heading mb-3" style="font-family: 'Outfit', sans-serif; color: #1F2937 !important;">Our Clients & Partners</h2>
+                <p class="body-text-custom" style="max-width: 700px; margin: 0 auto; color: #6B7280 !important; font-size: 1.1rem;">
+                    Trusted by tourism partners, local businesses and cultural organizations across Bihar.
                 </p>
             </div>
             
@@ -605,16 +591,16 @@ $csrfToken = Session::generateCsrfToken();
                 <div class="clients-marquee">
                     <?php
                     $clientsList = [
-                        ['name' => 'Bihar Tourism', 'tag' => 'Tourism', 'img' => 'https://ui-avatars.com/api/?name=BT&background=0B3D91&color=fff&size=200'],
-                        ['name' => 'NTPC Kahalgaon', 'tag' => 'Enterprise', 'img' => 'https://ui-avatars.com/api/?name=NTPC&background=FF9933&color=fff&size=200'],
-                        ['name' => 'Maurya Hotels', 'tag' => 'Hospitality', 'img' => 'https://ui-avatars.com/api/?name=MH&background=0D8ABC&color=fff&size=200'],
-                        ['name' => 'Sudha Dairy', 'tag' => 'Enterprise', 'img' => 'https://ui-avatars.com/api/?name=SD&background=28a745&color=fff&size=200'],
-                        ['name' => 'IIT Patna', 'tag' => 'Education', 'img' => 'https://ui-avatars.com/api/?name=IIT&background=6c757d&color=fff&size=200'],
-                        ['name' => 'NIFT Patna', 'tag' => 'Education', 'img' => 'https://ui-avatars.com/api/?name=NIFT&background=17a2b8&color=fff&size=200'],
+                        ['name' => 'Bihar Tourism', 'tag' => 'Tourism', 'img' => 'https://logo.clearbit.com/tourism.bihar.gov.in'],
+                        ['name' => 'NTPC Kahalgaon', 'tag' => 'Enterprise', 'img' => 'https://logo.clearbit.com/ntpc.co.in'],
+                        ['name' => 'Maurya Hotels', 'tag' => 'Hospitality', 'img' => 'https://logo.clearbit.com/maurya.com'],
+                        ['name' => 'Sudha Dairy', 'tag' => 'Enterprise', 'img' => 'https://logo.clearbit.com/sudha.coop'],
+                        ['name' => 'IIT Patna', 'tag' => 'Education', 'img' => 'https://logo.clearbit.com/iitp.ac.in'],
+                        ['name' => 'NIFT Patna', 'tag' => 'Education', 'img' => 'https://logo.clearbit.com/nift.ac.in'],
                     ];
                     foreach ($clientsList as $clientData): ?>
                     <div class="client-card">
-                        <img src="<?= $clientData['img'] ?>" alt="<?= $clientData['name'] ?>" loading="lazy">
+                        <img src="<?= $clientData['img'] ?>" alt="<?= $clientData['name'] ?>" loading="lazy" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=' + encodeURIComponent('<?= $clientData['name'] ?>') + '&background=F8F4F0&color=1F2937&size=200&font-size=0.33';">
                         <div class="client-info">
                             <h5><?= $clientData['name'] ?></h5>
                             <span><?= $clientData['tag'] ?></span>
@@ -625,7 +611,7 @@ $csrfToken = Session::generateCsrfToken();
                 <div class="clients-marquee" aria-hidden="true">
                     <?php foreach ($clientsList as $clientData): ?>
                     <div class="client-card">
-                        <img src="<?= $clientData['img'] ?>" alt="<?= $clientData['name'] ?>" loading="lazy">
+                        <img src="<?= $clientData['img'] ?>" alt="<?= $clientData['name'] ?>" loading="lazy" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=' + encodeURIComponent('<?= $clientData['name'] ?>') + '&background=F8F4F0&color=1F2937&size=200&font-size=0.33';">
                         <div class="client-info">
                             <h5><?= $clientData['name'] ?></h5>
                             <span><?= $clientData['tag'] ?></span>
@@ -655,3 +641,4 @@ $csrfToken = Session::generateCsrfToken();
     </section>
 
 <?php endif; ?>
+

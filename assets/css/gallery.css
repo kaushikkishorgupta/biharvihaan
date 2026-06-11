@@ -104,7 +104,7 @@ body.gallery-page {
     transition: all 0.3s;
 }
 .btn-gallery-outline:hover {
-    background-color: white;
+    background-color: var(--surface);
     color: var(--gal-primary);
 }
 

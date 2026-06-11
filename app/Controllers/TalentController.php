@@ -94,7 +94,7 @@ class TalentController extends Controller {
 
         if (empty($title) || empty($mediaUrl)) {
             Session::setFlash('error', 'Portfolio Title and Media link are required.');
-            $this->redirect('/dashboard');
+            $this->redirect('/');
         }
 
         $artistModel = new Artist();
@@ -102,7 +102,7 @@ class TalentController extends Controller {
 
         if (!$artist) {
             Session::setFlash('error', 'You must register an artist profile to upload portfolios.');
-            $this->redirect('/dashboard');
+            $this->redirect('/');
         }
 
         $success = $artistModel->addPortfolio($artist['id'], [
@@ -119,6 +119,6 @@ class TalentController extends Controller {
             Session::setFlash('error', 'Upload failed. Try again.');
         }
 
-        $this->redirect('/dashboard');
+        $this->redirect('/');
     }
 }

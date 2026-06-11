@@ -77,8 +77,8 @@
         $featured = ['Bodh Gaya', 'Nalanda', 'Rajgir', 'Vaishali', 'Patna Sahib', 'Vikramshila'];
         foreach($featured as $feat): ?>
         <div class="col-md-4 col-sm-6">
-            <div class="p-3 bg-white rounded shadow-sm text-center border" style="border-color: var(--gal-border);">
-                <h5 class="mb-0 text-dark"><?= $feat ?></h5>
+            <div class="p-3 bg-surface rounded shadow-sm text-center border" style="border-color: var(--gal-border);">
+                <h5 class="mb-0 "><?= $feat ?></h5>
                 <small class="text-muted">Explore Photos</small>
             </div>
         </div>
