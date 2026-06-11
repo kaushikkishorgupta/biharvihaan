@@ -272,13 +272,6 @@ class HomeController extends Controller {
         $this->redirect('/dashboard');
     }
 
-    public function clients() {
-        $this->render('api_docs', [
-            'title' => 'Our Clients - Bihar Vihaan',
-            'view_mode' => 'clients'
-        ]);
-    }
-
     public function about() {
         $this->render('about', [
             'title' => 'About Us - Bihar Vihaan Enterprise'
