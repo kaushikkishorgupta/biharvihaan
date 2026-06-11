@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: biharvihaan-db
+spec:
+  serviceName: "biharvihaan-db-service"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: biharvihaan-db
+  template:
+    metadata:
+      labels:
+        app: biharvihaan-db
+    spec:
+      containers:
+      - name: mysql
+        image: mysql:8.0
+        ports:
+        - containerPort: 3306
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: "root_secure_password"
+        - name: MYSQL_DATABASE
+          value: "biharvihaan_db"
+        - name: MYSQL_USER
+          value: "biharvihaan_user"
+        - name: MYSQL_PASSWORD
+          value: "biharvihaan_pass"
+        volumeMounts:
+        - name: db-persistent-storage
+          mountPath: /var/lib/mysql
+  volumeClaimTemplates:
+  - metadata:
+      name: db-persistent-storage
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 10Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: biharvihaan-db-service
+spec:
+  ports:
+  - port: 3306
+    targetPort: 3306
+  selector:
+    app: biharvihaan-db
+  clusterIP: None

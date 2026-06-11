@@ -1,0 +1,330 @@
+/* =========================================
+   Bihar Vihaan - Luxury Marketplace Styles
+   ========================================= */
+
+:root {
+    --shop-primary: #0B3D91;
+    --shop-accent: #FF9933;
+    --shop-bg: #f9f9f9;
+    --shop-card: #ffffff;
+    --shop-border: #E5E7EB;
+    --shop-text: #1F2937;
+    --shop-muted: #6b7280;
+}
+
+body.shop-page {
+    background-color: var(--shop-bg);
+    color: var(--shop-text);
+    font-family: 'Inter', sans-serif;
+}
+
+/* Cinematic Hero */
+.shop-hero {
+    position: relative;
+    padding: 140px 0 100px;
+    background: url('https://images.unsplash.com/photo-1544717305-2782549b5136?w=1600') center/cover no-repeat fixed;
+    color: white;
+    text-align: center;
+}
+
+.shop-hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(135deg, rgba(11, 61, 145, 0.85), rgba(0,0,0,0.7));
+}
+
+.shop-hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.shop-hero h1 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+    letter-spacing: -0.5px;
+}
+
+.shop-hero p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    margin-bottom: 30px;
+}
+
+/* Trust Badges */
+.trust-badges {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 30px;
+}
+.trust-badge {
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+.trust-badge i { color: var(--shop-accent); margin-right: 5px; }
+
+/* Buttons */
+.btn-shop-primary {
+    background: var(--shop-accent);
+    color: white;
+    padding: 12px 30px;
+    border-radius: 50px;
+    font-weight: 600;
+    border: none;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+.btn-shop-primary:hover {
+    background: #e68a2e;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255,153,51,0.3);
+    color: white;
+}
+
+/* Featured Categories */
+.category-card {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    height: 250px;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+.category-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+.category-card:hover img {
+    transform: scale(1.08);
+}
+.category-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 20px;
+    color: white;
+}
+.category-overlay h3 {
+    margin: 0;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+}
+
+/* Masonry Product Grid */
+.shop-masonry {
+    column-count: 4;
+    column-gap: 20px;
+}
+@media (max-width: 1200px) { .shop-masonry { column-count: 3; } }
+@media (max-width: 992px) { .shop-masonry { column-count: 2; } }
+
+.product-card {
+    break-inside: avoid;
+    margin-bottom: 20px;
+    background: var(--shop-card);
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+    border: 1px solid var(--shop-border);
+    transition: all 0.3s ease;
+}
+.product-card:hover {
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    transform: translateY(-5px);
+}
+.product-img-wrapper {
+    position: relative;
+    overflow: hidden;
+}
+.product-img-wrapper img {
+    width: 100%;
+    display: block;
+    transition: transform 0.5s ease;
+}
+.product-card:hover .product-img-wrapper img {
+    transform: scale(1.05);
+}
+.product-actions {
+    position: absolute;
+    bottom: 15px; left: 0; right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    opacity: 0;
+    transform: translateY(15px);
+    transition: all 0.3s ease;
+}
+.product-card:hover .product-actions {
+    opacity: 1;
+    transform: translateY(0);
+}
+.product-btn {
+    background: rgba(255,255,255,0.95);
+    color: var(--shop-primary);
+    border: none;
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: all 0.2s;
+}
+.product-btn.quick-view {
+    width: auto; padding: 0 15px; border-radius: 20px; font-weight: 600; font-size: 0.9rem;
+}
+.product-btn:hover {
+    background: var(--shop-primary);
+    color: white;
+}
+
+.product-info {
+    padding: 15px;
+}
+.product-category {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: var(--shop-accent);
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+.product-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: var(--shop-text);
+}
+.product-artisan {
+    font-size: 0.85rem;
+    color: var(--shop-muted);
+    margin-bottom: 10px;
+}
+.product-price {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--shop-primary);
+}
+
+/* Sidebar Filters */
+.shop-sidebar {
+    background: var(--shop-card);
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid var(--shop-border);
+    position: sticky;
+    top: 90px;
+}
+.filter-title {
+    font-weight: 700;
+    margin-bottom: 15px;
+    font-family: 'Outfit', sans-serif;
+}
+.filter-list {
+    list-style: none; padding: 0; margin: 0;
+}
+.filter-list li {
+    margin-bottom: 8px;
+}
+.filter-list a {
+    color: var(--shop-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+.filter-list a:hover, .filter-list a.active {
+    color: var(--shop-primary);
+    font-weight: 600;
+}
+
+/* Quick View Modal (Luxury Glassmorphism) */
+.quickview-modal {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.8);
+    backdrop-filter: blur(8px);
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+.quickview-modal.active {
+    display: flex;
+    animation: fadeIn 0.3s ease;
+}
+.quickview-content {
+    background: var(--shop-bg);
+    width: 100%;
+    max-width: 900px;
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    position: relative;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+}
+.quickview-close {
+    position: absolute;
+    top: 15px; right: 15px;
+    background: rgba(0,0,0,0.05);
+    border: none;
+    width: 35px; height: 35px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    z-index: 10;
+    transition: background 0.2s;
+}
+.quickview-close:hover { background: rgba(0,0,0,0.1); }
+.qv-img-side {
+    flex: 1;
+    background: #fff;
+    display: flex; align-items: center; justify-content: center;
+}
+.qv-img-side img { width: 100%; height: 100%; object-fit: cover; }
+.qv-info-side {
+    flex: 1;
+    padding: 40px;
+    display: flex; flex-direction: column;
+}
+@media (max-width: 768px) {
+    .quickview-content { flex-direction: column; max-height: 90vh; overflow-y: auto; }
+    .qv-img-side { height: 300px; }
+}
+
+/* Artisan Spotlight */
+.artisan-card {
+    text-align: center;
+    padding: 30px;
+    background: var(--shop-card);
+    border: 1px solid var(--shop-border);
+    border-radius: 12px;
+    transition: all 0.3s;
+}
+.artisan-card:hover { border-color: var(--shop-primary); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+.artisan-img {
+    width: 100px; height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto 15px;
+    border: 3px solid var(--shop-bg);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* Loader */
+.shop-loader { text-align: center; padding: 40px; display: none; }
+.shop-loader.active { display: block; }

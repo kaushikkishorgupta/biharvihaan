@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: biharvihaan-web-deployment
+  labels:
+    app: biharvihaan-web
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: biharvihaan-web
+  template:
+    metadata:
+      labels:
+        app: biharvihaan-web
+    spec:
+      containers:
+      - name: web
+        image: biharvihaan:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+        env:
+        - name: APP_ENV
+          value: "production"
+        - name: APP_DEBUG
+          value: "false"
+        - name: DB_HOST
+          value: "biharvihaan-db-service"
+        - name: DB_PORT
+          value: "3306"
+        - name: DB_DATABASE
+          value: "biharvihaan_db"
+        - name: DB_USERNAME
+          value: "biharvihaan_user"
+        - name: DB_PASSWORD
+          value: "biharvihaan_pass"
+        resources:
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
+          requests:
+            cpu: "250m"
+            memory: "256Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: biharvihaan-web-service
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app: biharvihaan-web

@@ -1,0 +1,12 @@
+# Apache Rewrite Configuration for Clean MVC URLs
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Prevent directory browsing
+    Options -Indexes
+
+    # Redirect requests to index.php if path is not a file or directory
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ index.php [QSA,L]
+</IfModule>

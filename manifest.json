@@ -1,0 +1,22 @@
+{
+  "name": "Bihar Vihaan Enterprise Portal",
+  "short_name": "BiharVihaan",
+  "description": "Bihar's largest digital ecosystem for Tourism, Media, Talent, and Careers.",
+  "start_url": "./index.php",
+  "display": "standalone",
+  "background_color": "#0b0f19",
+  "theme_color": "#14b8a6",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/826/826070.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/826/826070.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
