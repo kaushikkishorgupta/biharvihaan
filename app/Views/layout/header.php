@@ -126,14 +126,6 @@ $currentUri = $_SERVER['REQUEST_URI'];
             </nav>
 
             <div class="d-flex align-items-center gap-2">
-                <!-- Marketplace Icons -->
-                <a href="<?= BASE_URL ?>/marketplace/wishlist" class="btn btn-light btn-sm position-relative rounded-circle me-1" title="Wishlist" style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;">
-                    <i class="fa-regular fa-heart text-muted"></i>
-                </a>
-                <a href="<?= BASE_URL ?>/marketplace/cart" class="btn btn-light btn-sm position-relative rounded-pill px-3 me-2" title="Cart" style="display: flex; align-items: center; gap: 5px;">
-                    <i class="fa-solid fa-cart-shopping text-primary"></i> <span class="fw-bold">Cart (0)</span>
-                </a>
-
                 <?php if (Auth::check()): ?>
                     <span class="text-main small fw-bold me-2">Hi, <?= htmlspecialchars(Session::get('user_name') ?? 'User') ?></span>
                     <a href="<?= BASE_URL ?>/logout" class="btn btn-outline btn-sm px-3">Log Out</a>
@@ -142,21 +134,7 @@ $currentUri = $_SERVER['REQUEST_URI'];
                     <a href="<?= BASE_URL ?>/register" class="btn btn-primary btn-sm px-3">Sign Up</a>
                 <?php endif; ?>
 
-                <!-- Language Selector -->
-                <div class="dropdown">
-                    <button class="btn btn-outline btn-sm py-1 px-2 d-flex align-items-center gap-1 dropdown-toggle" type="button" id="langSelect" data-bs-toggle="dropdown" aria-expanded="false" style="font-size: 13px;">
-                        <i class="fa-solid fa-globe"></i> EN
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="langSelect" style="background-color: var(--bg-card); border-color: var(--border-color);">
-                        <li><a class="dropdown-item text-main" href="#" onclick="alert('Language changed to English');">English</a></li>
-                        <li><a class="dropdown-item text-main" href="#" onclick="alert('Language changed to Hindi (हिन्दी)');">Hindi</a></li>
-                    </ul>
-                </div>
 
-                <!-- Theme Switcher -->
-                <button id="theme-toggle" title="Toggle Theme">
-                    <i id="theme-icon" class="fa-solid fa-moon"></i>
-                </button>
             </div>
         </div>
     </div>

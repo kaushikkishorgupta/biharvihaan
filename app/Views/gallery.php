@@ -1,5 +1,3 @@
-<?php include __DIR__ . '/layout/header.php'; ?>
-
 <!-- Include Custom Gallery CSS -->
 <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/gallery.css">
 
@@ -127,4 +125,3 @@
 <!-- Include Custom Gallery JS -->
 <script src="<?= BASE_URL ?>/assets/js/gallery.js"></script>
 
-<?php include __DIR__ . '/layout/footer.php'; ?>

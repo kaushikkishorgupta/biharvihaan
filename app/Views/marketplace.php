@@ -46,57 +46,6 @@
         </div>
     </div>
 
-    <!-- SECTION 11 - BEST SELLERS -->
-    <section class="container mb-5">
-        <h3 class="mb-4 fw-bold font-outfit" style="color: var(--text);">Best Sellers</h3>
-        <div class="row row-cols-2 row-cols-md-4 g-4">
-            <?php foreach($bestSellers as $p): ?>
-                <div class="col">
-                    <div class="card product-card-premium h-100 border-0 shadow-sm bg-surface">
-                        <div class="position-relative overflow-hidden product-card-img-wrapper" style="aspect-ratio: 1/1; border-radius: 12px 12px 0 0;">
-                            <img src="<?= htmlspecialchars($p['image_url'] ?? 'https://images.unsplash.com/photo-1610701596007-11502861dcfa?auto=format&fit=crop&q=80') ?>" class="w-100 h-100 object-fit-cover product-img" alt="<?= htmlspecialchars($p['name']) ?>" loading="lazy">
-                            <div class="product-badges position-absolute top-0 start-0 p-2 w-100 d-flex justify-content-between">
-                                <span class="badge bg-danger text-white small"><i class="fa-solid fa-fire"></i> Best Seller</span>
-                                <button class="btn btn-light btn-sm rounded-circle shadow-sm btn-wishlist" onclick="toggleWishlist(<?= $p['id'] ?>)"><i class="fa-regular fa-heart text-muted"></i></button>
-                            </div>
-                        </div>
-                        <div class="card-body p-3">
-                            <h5 class="card-title mb-1 fs-6 fw-bold text-truncate"><?= htmlspecialchars($p['name']) ?></h5>
-                            <span class="fw-bold d-block mb-2" style="color: var(--shop-accent);">₹<?= number_format($p['price'], 0) ?></span>
-                            <div class="d-flex align-items-center mb-3">
-                                <div class="text-warning small me-2"><i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i></div>
-                                <small class="text-muted">(<?= rand(50, 500) ?>)</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            <?php endforeach; ?>
-        </div>
-    </section>
-
-    <!-- SECTION 12 - NEW ARRIVALS -->
-    <section class="container mb-5">
-        <h3 class="mb-4 fw-bold font-outfit" style="color: var(--text);">New Arrivals</h3>
-        <div class="row row-cols-2 row-cols-md-4 g-4">
-            <?php foreach($newArrivals as $p): ?>
-                <div class="col">
-                    <div class="card product-card-premium h-100 border-0 shadow-sm bg-surface">
-                        <div class="position-relative overflow-hidden product-card-img-wrapper" style="aspect-ratio: 1/1; border-radius: 12px 12px 0 0;">
-                            <img src="<?= htmlspecialchars($p['image_url'] ?? 'https://images.unsplash.com/photo-1578301978018-3005759f48f7?auto=format&fit=crop&q=80') ?>" class="w-100 h-100 object-fit-cover product-img" alt="<?= htmlspecialchars($p['name']) ?>" loading="lazy">
-                            <div class="product-badges position-absolute top-0 start-0 p-2 w-100 d-flex justify-content-between">
-                                <span class="badge bg-success text-white small">New</span>
-                            </div>
-                        </div>
-                        <div class="card-body p-3">
-                            <h5 class="card-title mb-1 fs-6 fw-bold text-truncate"><?= htmlspecialchars($p['name']) ?></h5>
-                            <span class="fw-bold d-block" style="color: var(--shop-accent);">₹<?= number_format($p['price'], 0) ?></span>
-                        </div>
-                    </div>
-                </div>
-            <?php endforeach; ?>
-        </div>
-    </section>
-
     <!-- SECTION 13 - HERITAGE COLLECTION -->
     <section class="container mb-5 pb-4 border-bottom">
         <h3 class="mb-4 fw-bold font-outfit" style="color: var(--text);">Premium Heritage Collections</h3>
