@@ -5,7 +5,7 @@ $csrfToken = Session::generateCsrfToken();
 ?>
 
 <!-- Alerts Container -->
-<div class="container" style="margin-top: 100px; margin-bottom: -50px; z-index: 10; position: relative;">
+<div class="container" style="margin-top: 10px; margin-bottom: -50px; z-index: 10; position: relative;">
     <?php if (Session::hasFlash('success')): ?>
         <div class="alert alert-success alert-dismissible fade show border-success-subtle bg-success-subtle text-success small" role="alert">
             <i class="fa-solid fa-circle-check me-2"></i><?= Session::getFlash('success') ?>
@@ -20,6 +20,8 @@ $csrfToken = Session::generateCsrfToken();
         </div>
     <?php endif; ?>
 </div>
+
+
 
 <!-- 1. LOGIN MODE -->
 <?php if ($viewMode === 'login'): ?>
@@ -50,17 +52,6 @@ $csrfToken = Session::generateCsrfToken();
                     </div>
                     <button type="submit" class="btn btn-primary w-100 fw-bold">Log In</button>
                 </form>
-
-                <!-- Social Logins -->
-                <div class="text-center my-4 small" style="color: var(--text-muted);">OR CONTINUE WITH</div>
-                <div class="d-flex gap-2">
-                    <a href="<?= BASE_URL ?>/login/google" class="btn btn-outline w-50 small d-flex align-items-center justify-content-center gap-2">
-                        <i class="fa-brands fa-google text-danger"></i> Google
-                    </a>
-                    <a href="<?= BASE_URL ?>/login/facebook" class="btn btn-outline w-50 small d-flex align-items-center justify-content-center gap-2">
-                        <i class="fa-brands fa-facebook text-primary"></i> Facebook
-                    </a>
-                </div>
 
                 <p class="text-center small mt-4 mb-0" style="color: var(--text-secondary);">
                     Don't have an account? <a href="<?= BASE_URL ?>/register" class="fw-bold text-decoration-none" style="color: var(--primary);">Sign Up</a>
@@ -142,6 +133,41 @@ $csrfToken = Session::generateCsrfToken();
         </div>
     </div>
 
+<!-- 2.6 NEW PASSWORD RESET MODE -->
+<?php elseif ($viewMode === 'reset_password'): ?>
+    <div class="container py-5 d-flex align-items-center justify-content-center" style="min-height: 80vh;">
+        <div class="card p-4 shadow-lg w-100" style="max-width: 450px; border-radius: var(--radius-md); background-color: var(--bg-card); border: 1px solid var(--border-color);">
+            <div class="card-body">
+                <div class="text-center mb-3">
+                    <img src="<?= BASE_URL ?>/assets/images/logo.png"
+                         alt="Bihar Vihaan Logo"
+                         class="site-logo mx-auto mb-3"
+                         style="height: 48px;"
+                         onerror="this.onerror=null; this.src='<?= BASE_URL ?>/assets/images/fallback.jpg';">
+                    <h2 class="fw-bold font-outfit h3" style="color: var(--text-main);">Choose New Password</h2>
+                </div>
+                <p class="small text-center mb-4" style="color: var(--text-secondary);">Create a secure new password for your account.</p>
+                
+                <form action="<?= BASE_URL ?>/reset-password" method="POST">
+                    <input type="hidden" name="csrf_token" value="<?= $csrfToken ?>">
+                    <input type="hidden" name="token" value="<?= htmlspecialchars($token ?? '') ?>">
+                    
+                    <div class="mb-3">
+                        <label class="form-label">New Password</label>
+                        <input type="password" name="password" class="form-control" placeholder="Minimum 6 characters" required>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="form-label">Confirm New Password</label>
+                        <input type="password" name="confirm_password" class="form-control" placeholder="Re-enter password" required>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary w-100 fw-bold">Update Password</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
 <!-- 3. OTP / 2FA VERIFY MODE -->
 <?php elseif ($viewMode === '2fa'): ?>
     <div class="container py-5 d-flex align-items-center justify-content-center" style="min-height: 80vh;">
@@ -190,7 +216,7 @@ $csrfToken = Session::generateCsrfToken();
 
         <div class="hero-content">
             <span class="badge bg-primary text-white border border-primary px-3 py-2 rounded-pill mb-3 small fw-bold text-uppercase tracking-wider">Cradle of Ancient Civilizations</span>
-            <h1><?= htmlspecialchars($sections['hero']['title'] ?? 'Discover the Real Bihar') ?></h1>
+            <h1><?= htmlspecialchars($heroTitle ?? 'Discover the Real Bihar') ?></h1>
             <p class="hero-subtitle">
                 <?= htmlspecialchars($sections['hero']['subtitle'] ?? 'Explore ancient empires, holy spiritual circuits, unique folk heritages, local businesses, and infinite travel opportunities across the heart of Bihar.') ?>
             </p>
@@ -568,61 +594,6 @@ $csrfToken = Session::generateCsrfToken();
             </div>
         </div>
     </section>
-
-    <!-- Premium Futuristic Enterprise Logo Showcase -->
-    <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/clients.css">
-    
-    <section class="clients-section">
-        <!-- Animated Backgrounds -->
-        <div class="client-bg-gradient"></div>
-        <div class="client-particles"></div>
-        
-        <div class="container position-relative" style="z-index: 2;">
-            <div class="text-center mb-5" data-aos="fade-up">
-                <span class="badge text-uppercase px-3 py-2 rounded-pill mb-3 fw-bold" style="color: #0B3D91; border: 1px solid #0B3D91; background: rgba(11, 61, 145, 0.1);">Trusted By</span>
-                <h2 class="section-heading mb-3" style="font-family: 'Outfit', sans-serif; color: #1F2937 !important;">Our Clients & Partners</h2>
-                <p class="body-text-custom" style="max-width: 700px; margin: 0 auto; color: #6B7280 !important; font-size: 1.1rem;">
-                    Trusted by tourism partners, local businesses and cultural organizations across Bihar.
-                </p>
-            </div>
-            
-            <div class="clients-marquee-wrapper" data-aos="fade-up" data-aos-delay="100">
-                <!-- Two identical marquees for seamless infinite looping -->
-                <div class="clients-marquee">
-                    <?php
-                    $clientsList = [
-                        ['name' => 'Bihar Tourism', 'tag' => 'Tourism', 'img' => 'https://logo.clearbit.com/tourism.bihar.gov.in'],
-                        ['name' => 'NTPC Kahalgaon', 'tag' => 'Enterprise', 'img' => 'https://logo.clearbit.com/ntpc.co.in'],
-                        ['name' => 'Maurya Hotels', 'tag' => 'Hospitality', 'img' => 'https://logo.clearbit.com/maurya.com'],
-                        ['name' => 'Sudha Dairy', 'tag' => 'Enterprise', 'img' => 'https://logo.clearbit.com/sudha.coop'],
-                        ['name' => 'IIT Patna', 'tag' => 'Education', 'img' => 'https://logo.clearbit.com/iitp.ac.in'],
-                        ['name' => 'NIFT Patna', 'tag' => 'Education', 'img' => 'https://logo.clearbit.com/nift.ac.in'],
-                    ];
-                    foreach ($clientsList as $clientData): ?>
-                    <div class="client-card">
-                        <img src="<?= $clientData['img'] ?>" alt="<?= $clientData['name'] ?>" loading="lazy" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=' + encodeURIComponent('<?= $clientData['name'] ?>') + '&background=F8F4F0&color=1F2937&size=200&font-size=0.33';">
-                        <div class="client-info">
-                            <h5><?= $clientData['name'] ?></h5>
-                            <span><?= $clientData['tag'] ?></span>
-                        </div>
-                    </div>
-                    <?php endforeach; ?>
-                </div>
-                <div class="clients-marquee" aria-hidden="true">
-                    <?php foreach ($clientsList as $clientData): ?>
-                    <div class="client-card">
-                        <img src="<?= $clientData['img'] ?>" alt="<?= $clientData['name'] ?>" loading="lazy" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=' + encodeURIComponent('<?= $clientData['name'] ?>') + '&background=F8F4F0&color=1F2937&size=200&font-size=0.33';">
-                        <div class="client-info">
-                            <h5><?= $clientData['name'] ?></h5>
-                            <span><?= $clientData['tag'] ?></span>
-                        </div>
-                    </div>
-                    <?php endforeach; ?>
-                </div>
-            </div>
-        </div>
-    </section>
-    <script src="<?= BASE_URL ?>/assets/js/clients.js"></script>
 
     <!-- Internship Section -->
     <section class="py-5" style="background-color: var(--bg-main); border-bottom: 1px solid var(--border-color);">

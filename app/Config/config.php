@@ -52,13 +52,23 @@ define('RAZORPAY_KEY_ID', env('RAZORPAY_KEY_ID', 'rzp_test_BiharVihaan'));
 define('RAZORPAY_KEY_SECRET', env('RAZORPAY_KEY_SECRET', ''));
 define('GOOGLE_MAPS_KEY', env('GOOGLE_MAPS_KEY', ''));
 
+// SMTP Email Configurations
+define('SMTP_HOST', env('SMTP_HOST', 'smtp.hostinger.com'));
+define('SMTP_PORT', env('SMTP_PORT', '465'));
+define('SMTP_USER', env('SMTP_USER', 'hello@biharvihaan.com'));
+define('SMTP_PASS', env('SMTP_PASS', ''));
+
 // Error Reporting Config
 if (APP_DEBUG) {
     error_reporting(E_ALL);
     ini_set('display_errors', 1);
+    ini_set('log_errors', 1);
+    ini_set('error_log', dirname(__DIR__, 2) . '/error.log');
 } else {
-    error_reporting(0);
+    error_reporting(E_ALL); // Log all errors in production but don't display
     ini_set('display_errors', 0);
+    ini_set('log_errors', 1);
+    ini_set('error_log', dirname(__DIR__, 2) . '/error.log');
 }
 
 // Timezone Setting

@@ -33,6 +33,7 @@ $currentUri = $_SERVER['REQUEST_URI'];
 
     <!-- CDNs: Bootstrap 5.3, Font Awesome, Swiper Slider, AOS animations -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
     <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
@@ -128,11 +129,15 @@ $currentUri = $_SERVER['REQUEST_URI'];
             <div class="d-flex align-items-center gap-2">
                 <?php if (Auth::check()): ?>
                     <span class="text-main small fw-bold me-2">Hi, <?= htmlspecialchars(Session::get('user_name') ?? 'User') ?></span>
-                    <a href="<?= BASE_URL ?>/logout" class="btn btn-outline btn-sm px-3">Log Out</a>
+                    <a href="<?= BASE_URL ?>/user/dashboard" class="btn btn-outline btn-sm px-3">Dashboard</a>
                 <?php else: ?>
                     <a class="nav-link <?= (strpos($currentUri, '/login') !== false) ? 'active' : '' ?>" href="<?= BASE_URL ?>/login">Sign In</a>
                     <a href="<?= BASE_URL ?>/register" class="btn btn-primary btn-sm px-3">Sign Up</a>
                 <?php endif; ?>
+
+                <button class="btn btn-link text-main ms-2" type="button" data-bs-toggle="modal" data-bs-target="#globalSearchModal">
+                    <i class="fa-solid fa-magnifying-glass fs-5"></i>
+                </button>
 
 
             </div>

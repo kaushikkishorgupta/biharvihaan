@@ -47,6 +47,12 @@ class Router {
             $url = '/';
         }
 
+        // Apply Role Middleware to protect /admin and /superadmin routes
+        if (strpos($url, '/admin') === 0 || strpos($url, '/superadmin') === 0) {
+            require_once __DIR__ . '/RoleMiddleware.php';
+            \App\Core\RoleMiddleware::handle($url);
+        }
+
         foreach ($this->routes as $routeInfo) {
             if ($routeInfo['method'] === $requestMethod && preg_match($routeInfo['route'], $url, $matches)) {
                 $params = [];

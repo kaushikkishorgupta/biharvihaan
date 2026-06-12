@@ -23,8 +23,13 @@ class Controller {
         }
     }
 
-    // Renders web page layouts
     public function render($view, $data = []) {
+        // Basic caching header for performance (60 seconds)
+        if (!headers_sent()) {
+            header("Cache-Control: max-age=60, public");
+            header("X-Content-Type-Options: nosniff");
+        }
+
         // Globally fetch settings and menus if not provided
         if (!isset($data['settings'])) {
             $data['settings'] = [];
@@ -51,6 +56,22 @@ class Controller {
             }
         } else {
             die("View template '$view' not found at path: $viewPath");
+        }
+    }
+
+    // Renders admin page layouts
+    public function renderAdmin($view, $data = []) {
+        extract($data);
+        $viewPath = dirname(__DIR__) . "/Views/$view.php";
+        $headerPath = dirname(__DIR__) . "/Views/admin/layout/header.php";
+        $footerPath = dirname(__DIR__) . "/Views/admin/layout/footer.php";
+
+        if (file_exists($viewPath)) {
+            require $headerPath;
+            require $viewPath;
+            require $footerPath;
+        } else {
+            die("Admin View template '$view' not found at path: $viewPath");
         }
     }
 
